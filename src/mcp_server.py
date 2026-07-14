@@ -1,5 +1,6 @@
 import os
 import sys
+import json
 import argparse
 import base64
 from email.message import EmailMessage
@@ -20,6 +21,16 @@ mcp = FastMCP("Workspace Server")
 
 def get_credentials():
     """Handles OAuth 2.0 authentication and token management."""
+    # 1. Cloud Deployment Mode: Check for Environment Variable first
+    env_token = os.environ.get("GOOGLE_OAUTH_TOKEN_JSON")
+    if env_token:
+        token_info = json.loads(env_token)
+        creds = Credentials.from_authorized_user_info(token_info, SCOPES)
+        if creds and creds.expired and creds.refresh_token:
+            creds.refresh(Request())
+        return creds
+
+    # 2. Local Dev Mode: Fall back to files
     # Find the client secret file dynamically based on the uploaded file in the current directory
     client_secret_file = None
     for f in os.listdir("."):
