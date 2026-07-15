@@ -143,7 +143,7 @@ def create_document(title: str, content: str) -> str:
         }
     ]
     
-    sections_to_bold = ["* Top themes", "* Real user quotes", "* Three action ideas"]
+    sections_to_bold = ["* Top themes ;", "* User Quotes ;", "* Three action ideas ;"]
     for section in sections_to_bold:
         start_idx = full_content.find(section)
         if start_idx != -1:
