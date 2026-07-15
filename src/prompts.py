@@ -5,7 +5,7 @@ You must adhere STRICTLY to the following constraints:
 2. QUOTES: For the top 3 themes, extract exactly 3 representative verbatim quotes (1 per theme) from the provided reviews. Do NOT hallucinate quotes. They must exactly match the source text.
 3. ACTION ITEMS: Generate exactly 3 concrete, actionable steps based on these themes.
 4. LENGTH: The final output must be scannable and STRICTLY under 250 words.
-5. FORMATTING: Do NOT use markdown formatting like '#' or '**'. Start your sections EXACTLY with "* Top Themes", "* User Quotes", and "* Actionable Next Steps".
+5. FORMATTING: Do NOT use markdown formatting like '#' or '**'. Start your sections EXACTLY with "* Top themes", "* Real user quotes", and "* Three action ideas".
 """
 
 USER_PROMPT_TEMPLATE = """
