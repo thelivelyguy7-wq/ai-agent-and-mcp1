@@ -75,12 +75,53 @@ def create_document(title: str, content: str) -> str:
     document = docs_service.documents().create(body={'title': title}).execute()
     document_id = document.get('documentId')
 
-    # 2. Insert content at the beginning
+    # 2. Format and Insert content at the beginning
+    header1 = "Weekly Pulse\n"
+    header2 = "App Store and Play Store reviews from the last 8–12 weeks\n\n"
+    full_content = header1 + header2 + content
+    
+    idx1_start = 1
+    idx1_end = idx1_start + len(header1)
+    idx2_start = idx1_end
+    idx2_end = idx2_start + len(header2) - 2
+    
     requests = [
         {
             'insertText': {
                 'location': {'index': 1},
-                'text': content
+                'text': full_content
+            }
+        },
+        {
+            'updateTextStyle': {
+                'range': {
+                    'startIndex': idx1_start,
+                    'endIndex': idx1_end
+                },
+                'textStyle': {
+                    'bold': True,
+                    'fontSize': {
+                        'magnitude': 16,
+                        'unit': 'PT'
+                    }
+                },
+                'fields': 'bold,fontSize'
+            }
+        },
+        {
+            'updateTextStyle': {
+                'range': {
+                    'startIndex': idx2_start,
+                    'endIndex': idx2_end
+                },
+                'textStyle': {
+                    'bold': True,
+                    'fontSize': {
+                        'magnitude': 14,
+                        'unit': 'PT'
+                    }
+                },
+                'fields': 'bold,fontSize'
             }
         }
     ]
