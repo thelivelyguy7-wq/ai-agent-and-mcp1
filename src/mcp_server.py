@@ -134,6 +134,7 @@ def create_document(title: str, content: str) -> str:
                     'borderBottom': {
                         'color': {'color': {'rgbColor': {'red': 0, 'green': 0, 'blue': 0}}},
                         'width': {'magnitude': 1, 'unit': 'PT'},
+                        'padding': {'magnitude': 1, 'unit': 'PT'},
                         'dashStyle': 'SOLID'
                     }
                 },

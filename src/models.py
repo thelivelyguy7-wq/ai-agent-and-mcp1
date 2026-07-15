@@ -9,6 +9,7 @@ class Review(BaseModel):
     date: datetime = Field(..., description="Date the review was posted")
     title: Optional[str] = None
     language: Optional[str] = Field(default="en", description="Language code")
+    theme: Optional[str] = Field(default="Other", description="Categorized theme of the review")
 
     class Config:
         json_schema_extra = {
