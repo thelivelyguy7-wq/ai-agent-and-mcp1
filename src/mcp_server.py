@@ -123,8 +123,44 @@ def create_document(title: str, content: str) -> str:
                 },
                 'fields': 'bold,fontSize'
             }
+        },
+        {
+            'updateParagraphStyle': {
+                'range': {
+                    'startIndex': idx2_start,
+                    'endIndex': idx2_end
+                },
+                'paragraphStyle': {
+                    'borderBottom': {
+                        'color': {'color': {'rgbColor': {'red': 0, 'green': 0, 'blue': 0}}},
+                        'width': {'magnitude': 1, 'unit': 'PT'},
+                        'dashStyle': 'SOLID'
+                    }
+                },
+                'fields': 'borderBottom'
+            }
         }
     ]
+    
+    sections_to_bold = ["* Top Themes", "* User Quotes", "* Actionable Next Steps"]
+    for section in sections_to_bold:
+        start_idx = full_content.find(section)
+        if start_idx != -1:
+            start_idx += 1
+            end_idx = start_idx + len(section)
+            requests.append({
+                'updateTextStyle': {
+                    'range': {
+                        'startIndex': start_idx,
+                        'endIndex': end_idx
+                    },
+                    'textStyle': {
+                        'bold': True
+                    },
+                    'fields': 'bold'
+                }
+            })
+
     docs_service.documents().batchUpdate(
         documentId=document_id, body={'requests': requests}).execute()
 
